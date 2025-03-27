@@ -7,7 +7,7 @@ WORKDIR /app
 COPY package*.json ./
 
 #Install dependencies
-RUN npm install --production
+RUN npm install
 
 #Copy the rest of the application code
 COPY . .
@@ -15,5 +15,8 @@ COPY . .
 # Expose the port the Express server will run on
 EXPOSE 3000
 
+# Compile TypeScript to JavaScript
+RUN npm run build
+
 # Run the command to start the server when the container launches
-CMD ["node", "server.ts"]
+CMD ["node", "dist/server.js"]
