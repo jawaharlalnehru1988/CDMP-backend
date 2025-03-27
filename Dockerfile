@@ -16,4 +16,4 @@ COPY . .
 EXPOSE 3000
 
 # Run the command to start the server when the container launches
-CMD ["node", "server.js"]
+CMD ["node", "server.ts"]
