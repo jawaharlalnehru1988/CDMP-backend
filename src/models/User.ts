@@ -10,10 +10,10 @@ export interface IUser extends Document{
 }
 
 const UserSchema: Schema<IUser> = new Schema({
-    name: {type: String, required: true},
+    name: {type: String},
     email: {type: String, required: true, unique: true},
     password: {type: String, required: true},
-    role: {type: String, required: true, enum: ["patient", "provider"]}
+    role: {type: String, enum: ["patient", "provider"]}
 });
 
 UserSchema.pre<IUser>("save", async function(next){
