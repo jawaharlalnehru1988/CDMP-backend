@@ -5,11 +5,12 @@ import cors from "cors";
 import authRouter from "./routes/authRoutes";
 import metricRouter from "./routes/healthMetricRoutes";
 import messageRouter from "./routes/messageRoutes";
+import helmet from "helmet";
 
 const app = express();
+app.use(helmet());
 app.use(express.json());
 app.use(cors());
-
 configDotenv();
 connectDB();
 

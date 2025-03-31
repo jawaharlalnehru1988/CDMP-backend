@@ -1,11 +1,12 @@
 import {Request, Response, NextFunction } from "express";
 import jwt, { JwtPayload } from "jsonwebtoken";
+import { UserDetails } from "../interface";
 
 const SECRET_KEY = process.env.SECRET_KEY || "MANAGEDISEASE";
 declare global{
     namespace Express{
         interface Request{
-            user?: string | JwtPayload;
+            user?: string | JwtPayload | UserDetails;
         }
     }
 }
@@ -21,7 +22,6 @@ const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
         try {
             const decoded = jwt.verify(token, SECRET_KEY);
             req.user = decoded;
-            console.log('decoded :', decoded);
             next();
             } catch (error) {
                 res.status(401).send({ error: "Access denied. Invalid token.", errorMesage: error });
