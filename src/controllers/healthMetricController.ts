@@ -31,16 +31,30 @@ export const getPatientMatrics = async (req: Request, res: Response) => {
 
 export const updateMetrics = async (req: Request, res: Response)=>{
   try{
-    const value = req.body.data;
+    const value = req.body.value;
     const id = req.params.id;
     if(isNaN(value)){
          res.status(400).json({message:"Invalid data provided"});
          return;
     }
-    const updateMet = await HealthMetric.findByIdAndUpdate(id, {$set: {value: value}}, {new: true});
-        res.status(200).json(updateMet);
+    const updateMet = await HealthMetric.findByIdAndUpdate(id, {$set: {value}}, {new: true});
+      res.status(200).json(updateMet);
     } catch(errr){
       res.status(500).json({message: "could not update due to server error", errr})
     }
   }
+
+export const deleteMetrics = async (req: Request, res: Response) => {
+  try {
+    const metricId = req.params.id;
+    const deletedMetric = await HealthMetric.findByIdAndDelete(metricId);
+    if (!deletedMetric) {
+       res.status(404).json({ message: "Metric not found" });
+       return;
+    }
+    res.status(200).json({ message: "Metric deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Internal server error", error });
+  }
+}
 
