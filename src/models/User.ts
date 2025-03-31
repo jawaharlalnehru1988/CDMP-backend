@@ -2,7 +2,7 @@ import mongoose, {Schema, Document} from "mongoose";
 import bcrypt from "bcryptjs";
 
 export interface IUser extends Document{
-    name: string;
+    username: string;
     email: string;
     password: string;
     role: "patient" | "provider";
@@ -10,7 +10,7 @@ export interface IUser extends Document{
 }
 
 const UserSchema: Schema<IUser> = new Schema({
-    name: {type: String},
+    username: {type: String},
     email: {type: String, required: true, unique: true},
     password: {type: String, required: true},
     role: {type: String, enum: ["patient", "provider"]}

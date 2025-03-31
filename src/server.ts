@@ -14,8 +14,9 @@ configDotenv();
 connectDB();
 
 app.use("/api/auth", authRouter);
-app.use("/api", metricRouter);
+app.use("/api/metrics", metricRouter);
 app.use("/api/messages", messageRouter);
+
 
 app.get("/", (req, res) => {
     res.send("Chronic Disease Management API is running");
